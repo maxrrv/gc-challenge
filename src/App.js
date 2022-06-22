@@ -1,15 +1,19 @@
 import { useState } from 'react'
+import { fetchRepositoriesForTerm } from './api/fetchRepositories'
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('')
-  console.log({ searchQuery })
   const handleFormChange = (event) => setSearchQuery(event.target.value)
+  const handleFormSubmit = (event) => {
+    event.preventDefault()
+    fetchRepositoriesForTerm(searchQuery)
+  }
   return (
     <div>
       <header>
         <h1> Github Repositories </h1>
       </header>
       <div>
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <label>
             Name:
             <input type="text" name="repositoryName" value={searchQuery} onChange={handleFormChange} />
