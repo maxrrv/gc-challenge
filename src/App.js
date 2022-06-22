@@ -1,13 +1,26 @@
 import { useState } from 'react'
+
 import { SearchForm } from './components/searchForm'
 import { ResultList } from './components/resultList'
 
 const App = () => {
   const [repositoryResults, setRepositoryResults] = useState({})
-  console.log({ repositoryResults })
-
   const repositories = repositoryResults?.data?.items ?? []
-  console.log(repositories)
+
+  //  const initialState = {
+  //    favourites: []
+  //  }
+  //  const favouritesReducer = (state = initialState, action) =>{
+  //    switch(action.type){
+  //      case 'favourite/added':
+  //        return { [...favourites, action[payload]]}
+  //      case 'favourite/removed':
+  //        return {//todo add delete logic
+  //        }
+  //    }
+  //
+  //  }
+
   return (
     <div>
       <header>
