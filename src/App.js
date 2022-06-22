@@ -1,25 +1,34 @@
 import { useState } from 'react'
-import { fetchRepositoriesForTerm } from './api/fetchRepositories'
+import { SearchForm } from './components/searchForm'
 const App = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const handleFormChange = (event) => setSearchQuery(event.target.value)
-  const handleFormSubmit = (event) => {
-    event.preventDefault()
-    fetchRepositoriesForTerm(searchQuery)
-  }
+  const [repositoryResults, setRepositoryResults] = useState({})
+  console.log({ repositoryResults })
+
+  const repositories = repositoryResults?.data?.items
+  console.log(repositories)
   return (
     <div>
       <header>
         <h1> Github Repositories </h1>
       </header>
       <div>
-        <form onSubmit={handleFormSubmit}>
-          <label>
-            Name:
-            <input type="text" name="repositoryName" value={searchQuery} onChange={handleFormChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+        <SearchForm returnResults={setRepositoryResults} />
+        {repositories.map((repository) => (
+          <div
+            key={repository.full_name}
+            style={{
+              width: '50%',
+              minHeight: '3rem',
+              border: '1px solid green',
+              borderRadius: '5px',
+              margin: '5px',
+              paddingLeft: '10px'
+            }}>
+            {' '}
+            <p>{repository.full_name}</p>
+            <p>{repository.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   )
